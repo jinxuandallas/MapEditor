@@ -13,15 +13,33 @@ _global_script_classes=[ {
 "class": "GitAPI",
 "language": "NativeScript",
 "path": "res://git_api.gdns"
+}, {
+"base": "Node2D",
+"class": "MapEditor",
+"language": "GDScript",
+"path": "res://edit_tilemap.gd"
+}, {
+"base": "TextureRect",
+"class": "MyTextureRect",
+"language": "GDScript",
+"path": "res://my_texture_rect.gd"
 } ]
 _global_script_class_icons={
-"GitAPI": ""
+"GitAPI": "",
+"MapEditor": "",
+"MyTextureRect": ""
 }
 
 [application]
 
 config/name="Map Editor"
+run/main_scene="res://select_tilemap.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=1200
+window/size/height=700
 
 [gdnative]
 

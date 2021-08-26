@@ -1,0 +1,207 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://edit_tilemap.gd" type="Script" id=2]
+[ext_resource path="res://fonts/game_chinese_dynamicfont.tres" type="DynamicFont" id=3]
+
+[node name="Background" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+layer = -10
+scroll_limit_begin = Vector2( -200, 0 )
+scroll_limit_end = Vector2( 1200, 1100 )
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="GridContainer" type="GridContainer" parent="ParallaxBackground/ParallaxLayer"]
+margin_left = 1015.0
+margin_top = 100.0
+margin_right = 1140.0
+margin_bottom = 400.0
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label0" type="Label" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_right = 71.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 3 )
+text = "0：空"
+
+[node name="ColorRect0" type="ColorRect" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_left = 75.0
+margin_right = 95.0
+margin_bottom = 23.0
+rect_min_size = Vector2( 20, 20 )
+
+[node name="Label1" type="Label" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_top = 27.0
+margin_right = 71.0
+margin_bottom = 50.0
+custom_fonts/font = ExtResource( 3 )
+text = "1：平原"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect1" type="ColorRect" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_left = 75.0
+margin_top = 27.0
+margin_right = 95.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 20, 0 )
+
+[node name="Label2" type="Label" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_top = 54.0
+margin_right = 71.0
+margin_bottom = 77.0
+custom_fonts/font = ExtResource( 3 )
+text = "2：草原"
+
+[node name="ColorRect2" type="ColorRect" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_left = 75.0
+margin_top = 54.0
+margin_right = 95.0
+margin_bottom = 77.0
+
+[node name="Label3" type="Label" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_top = 81.0
+margin_right = 71.0
+margin_bottom = 104.0
+custom_fonts/font = ExtResource( 3 )
+text = "3：水域"
+
+[node name="ColorRect3" type="ColorRect" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_left = 75.0
+margin_top = 81.0
+margin_right = 95.0
+margin_bottom = 104.0
+
+[node name="Label4" type="Label" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_top = 108.0
+margin_right = 71.0
+margin_bottom = 131.0
+custom_fonts/font = ExtResource( 3 )
+text = "4：湿地"
+
+[node name="ColorRect4" type="ColorRect" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_left = 75.0
+margin_top = 108.0
+margin_right = 95.0
+margin_bottom = 131.0
+
+[node name="Label5" type="Label" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_top = 135.0
+margin_right = 71.0
+margin_bottom = 158.0
+custom_fonts/font = ExtResource( 3 )
+text = "5：森林"
+
+[node name="ColorRect5" type="ColorRect" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_left = 75.0
+margin_top = 135.0
+margin_right = 95.0
+margin_bottom = 158.0
+
+[node name="Label6" type="Label" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_top = 162.0
+margin_right = 71.0
+margin_bottom = 185.0
+custom_fonts/font = ExtResource( 3 )
+text = "6：山地"
+
+[node name="ColorRect6" type="ColorRect" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_left = 75.0
+margin_top = 162.0
+margin_right = 95.0
+margin_bottom = 185.0
+
+[node name="Label7" type="Label" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_top = 189.0
+margin_right = 71.0
+margin_bottom = 212.0
+custom_fonts/font = ExtResource( 3 )
+text = "7：峻岭"
+
+[node name="ColorRect7" type="ColorRect" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_left = 75.0
+margin_top = 189.0
+margin_right = 95.0
+margin_bottom = 212.0
+
+[node name="Label8" type="Label" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_top = 216.0
+margin_right = 71.0
+margin_bottom = 239.0
+custom_fonts/font = ExtResource( 3 )
+text = "8：城池"
+
+[node name="ColorRect8" type="ColorRect" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_left = 75.0
+margin_top = 216.0
+margin_right = 95.0
+margin_bottom = 239.0
+
+[node name="Label9" type="Label" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_top = 243.0
+margin_right = 71.0
+margin_bottom = 266.0
+custom_fonts/font = ExtResource( 3 )
+text = "9：关隘"
+
+[node name="ColorRect9" type="ColorRect" parent="ParallaxBackground/ParallaxLayer/GridContainer"]
+margin_left = 75.0
+margin_top = 243.0
+margin_right = 95.0
+margin_bottom = 266.0
+
+[node name="Map" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+centered = false
+
+[node name="Viewport" type="Viewport" parent="."]
+size = Vector2( 1200, 700 )
+
+[node name="MarginContainer" type="MarginContainer" parent="Viewport"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 1195.0
+margin_bottom = 695.0
+mouse_filter = 1
+custom_constants/margin_right = 50
+custom_constants/margin_top = 50
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="Viewport/MarginContainer"]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 1140.0
+margin_bottom = 640.0
+mouse_filter = 1
+
+[node name="ConfirmDialog" type="ConfirmationDialog" parent="."]
+margin_left = 474.801
+margin_top = 325.488
+margin_right = 612.801
+margin_bottom = 412.488
+window_title = "是否保存"
+dialog_text = "
+"
+dialog_hide_on_ok = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="ConfirmDialog"]
+margin_left = 21.0
+margin_top = 15.0
+margin_right = 205.0
+margin_bottom = 38.0
+custom_fonts/font = ExtResource( 3 )
+text = "是否保存"
+
+[connection signal="confirmed" from="ConfirmDialog" to="." method="_on_ConfirmDialog_confirmed"]
