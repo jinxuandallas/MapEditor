@@ -8,6 +8,7 @@ var active_color_rect
 #存储地图上的信息
 var map_data=[]
 var mouse_position
+var map_state:=[]
 
 onready var background=$ParallaxBackground
 onready var margin_container=$"Viewport/MarginContainer"
@@ -18,8 +19,8 @@ onready var map_num=get_tree().get_meta("MapNum")
 
 
 func _ready():
-	get_tree().set_meta("MapNum","1")
-	map_num="1"
+#	get_tree().set_meta("MapNum","1")
+#	map_num="1"
 	
 	#检查有没有设置MapNum变量
 	if !get_tree().has_meta("MapNum"):
@@ -78,19 +79,25 @@ func _ready():
 	$ParallaxBackground/ParallaxLayer/GridContainer/ColorRect8.color=Color.cadetblue
 	$ParallaxBackground/ParallaxLayer/GridContainer/ColorRect9.color=Color.firebrick
 	
+	$ConfirmDialog.get_cancel().connect("pressed",self,"_on_ConfirmDialog_canelled")
+
+
 func _input(event):
-	
 	$Viewport.input(event)
 	
 	if event is InputEventMouse:
 		mouse_position = event.position
 		in_edge = ! _DetectMouseRect.get_rect().has_point(mouse_position)
-		
-	if Input.is_key_pressed(KEY_ENTER):
+	
+	if event is InputEventKey:
+		if event.scancode==KEY_ESCAPE:
+				$ConfirmDialog.popup()
+				
+	if Input.is_key_pressed(KEY_ENTER) or Input.is_key_pressed(KEY_KP_ENTER):
 		_save_map()
 		
-	if Input.is_key_pressed(KEY_ESCAPE):
-		$ConfirmDialog.popup()
+#	if Input.is_key_pressed(KEY_ESCAPE):
+#		$ConfirmDialog.popup()
 		
 	if (Input.is_key_pressed(KEY_KP_0) or Input.is_key_pressed(KEY_0)) and Input.is_key_pressed(KEY_CONTROL):
 		_fill(0)
@@ -173,12 +180,12 @@ func _fill(key_type):
 	var refresh=false #判断是否有格子改变了类型
 	if active_color_rect==null:
 		return
-	print(active_color_rect.name)
-	print(active_color_rect.name.lstrip("Cell"))
-	print(active_color_rect.name.lstrip("Cell").split(",",false))
+#	print(active_color_rect.name)
+#	print(active_color_rect.name.lstrip("Cell"))
+#	print(active_color_rect.name.lstrip("Cell").split(",",false))
 	
 	var coordinate=active_color_rect.name.lstrip("Cell").split(",",false)
-	print(map_data[coordinate[0] as int][coordinate[1] as int])
+#	print(map_data[coordinate[0] as int][coordinate[1] as int])
 	var ref_value=map_data[coordinate[0] as int][coordinate[1] as int]
 	for i in 20:
 		for j in 20:
@@ -218,14 +225,30 @@ func _save_map():
 	var map_dic:Dictionary
 	while l<=map_data.size():
 		map_dic[l]=map_data[l-1]
-#		var json={l:map_data[l-1]}
-#		save_file.store_line(to_json(json))
 		l+=1
 		
 	save_file.store_string(JSON.print(map_dic,"\t"))
-	print(JSON.print(map_dic,"\t"))
-#	save_file.store_line(to_json(map_data))
-#	save_file.store_line(JSON.print(json,"\t"))
+#	print(JSON.print(map_dic,"\t"))
+	save_file.close()
+	
+	#存储地图状态
+	var state=1	#1代表地图全部设置过了
+	for i in map_data:
+		if i.find(0)!=-1:
+			state=0
+			break
+			
+	_load_mapstate()
+	
+	map_state[map_num as int]=state
+	
+	_save_mapstate()
+	
+func _save_mapstate():
+	var save_file=File.new()
+	var state={"MapState":map_state}
+	save_file.open("res://Json/map_state.json",File.WRITE)
+	save_file.store_string(JSON.print(state,"\t"))
 	save_file.close()
 
 func _load_map():
@@ -241,7 +264,6 @@ func _load_map():
 #	while file.get_position()<file.get_len():
 	var map_json=parse_json(file.get_as_text())
 #	print(map_json)
-
 	if map_json.size()>0:
 		map_data.clear()
 		
@@ -304,5 +326,39 @@ func _get_color(type):		#根据不同类型返回相应颜色
 
 func _on_ConfirmDialog_confirmed():
 	_save_map()
+	get_tree().change_scene("res://select_tilemap.tscn")
 
+func _on_ConfirmDialog_canelled():
+	get_tree().change_scene("res://select_tilemap.tscn")
 
+func _load_mapstate():
+	var file=File.new()
+	if not file.file_exists("res://Json/map_state.json"):
+		print("文件不存在")
+		_format_mapstate()
+		return
+		
+	file.open("res://Json/map_state.json",File.READ)
+	var map_json=parse_json(file.get_as_text())
+
+	if map_json.size()>0:
+		map_state.clear()
+		map_state=map_json["MapState"]
+		
+#		for i in map_json["MapState"]:
+#			map_state.append(i as int)
+	else:
+		_format_mapstate()
+
+#生成108个位0的数组，并存入map_state.json文件中
+func _format_mapstate():
+	map_state.clear()
+	for i in 108:
+		map_state.append(0)
+		
+	_save_mapstate()
+#	var save_file=File.new()
+#	var state={"MapState":map_state}
+#	save_file.open("res://Json/map_state.json",File.WRITE)
+#	save_file.store_string(JSON.print(state,"\t"))
+#	save_file.close()

@@ -186,21 +186,19 @@ mouse_filter = 1
 [node name="ConfirmDialog" type="ConfirmationDialog" parent="."]
 margin_left = 474.801
 margin_top = 325.488
-margin_right = 612.801
-margin_bottom = 412.488
+margin_right = 674.801
+margin_bottom = 405.488
+rect_min_size = Vector2( 200, 80 )
 window_title = "是否保存"
-dialog_text = "
-"
-dialog_hide_on_ok = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label2" type="Label" parent="ConfirmDialog"]
-margin_left = 21.0
-margin_top = 15.0
-margin_right = 205.0
-margin_bottom = 38.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 192.0
+margin_bottom = 44.0
 custom_fonts/font = ExtResource( 3 )
 text = "是否保存"
 
