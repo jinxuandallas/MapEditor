@@ -157,7 +157,8 @@ func _load_mapstate():
 				get_node("Chunks/PartMap%d"%(map_state.size()-1)).modulate=Color.green
 	else:
 		_format_mapstate()
-
+	file.close()
+	
 #生成108个位0的数组，并存入map_state.json文件中
 func _format_mapstate():
 	map_state.clear()

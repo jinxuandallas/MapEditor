@@ -238,6 +238,7 @@ func _save_map():
 			state=0
 			break
 			
+	#保存地图最后一步，将新设置的地图是否全部编辑完毕状态保存到总地图的json文件中
 	_load_mapstate()
 	
 	map_state[map_num as int]=state
@@ -275,6 +276,8 @@ func _load_map():
 			
 	else:
 		_format_mapdata()
+		
+	file.close()
 #	
 func _format_mapdata():
 	for i in 20:
@@ -349,6 +352,8 @@ func _load_mapstate():
 #			map_state.append(i as int)
 	else:
 		_format_mapstate()
+		
+	file.close()
 
 #生成108个位0的数组，并存入map_state.json文件中
 func _format_mapstate():
