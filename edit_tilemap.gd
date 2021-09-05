@@ -9,6 +9,8 @@ var active_color_rect
 var map_data=[]
 var mouse_position
 var map_state:=[]
+var architectures:=[]
+var architecture_changed=false
 
 onready var background=$ParallaxBackground
 onready var margin_container=$"Viewport/MarginContainer"
@@ -19,8 +21,8 @@ onready var map_num=get_tree().get_meta("MapNum")
 
 
 func _ready():
-#	get_tree().set_meta("MapNum","1")
-#	map_num="1"
+	get_tree().set_meta("MapNum","57")
+	map_num="57"
 	
 	#检查有没有设置MapNum变量
 	if !get_tree().has_meta("MapNum"):
@@ -98,40 +100,42 @@ func _input(event):
 		
 #	if Input.is_key_pressed(KEY_ESCAPE):
 #		$ConfirmDialog.popup()
-		
-	if (Input.is_key_pressed(KEY_KP_0) or Input.is_key_pressed(KEY_0)) and Input.is_key_pressed(KEY_CONTROL):
-		_fill(0)
-		return
-	if (Input.is_key_pressed(KEY_KP_1) or Input.is_key_pressed(KEY_1)) and Input.is_key_pressed(KEY_CONTROL):
-		_fill(1)
-		return
-	if (Input.is_key_pressed(KEY_KP_2) or Input.is_key_pressed(KEY_2)) and Input.is_key_pressed(KEY_CONTROL):
-		_fill(2)
-		return
-	if (Input.is_key_pressed(KEY_KP_3) or Input.is_key_pressed(KEY_3)) and Input.is_key_pressed(KEY_CONTROL):
-		_fill(3)
-		return
-	if (Input.is_key_pressed(KEY_KP_4) or Input.is_key_pressed(KEY_4)) and Input.is_key_pressed(KEY_CONTROL):
-		_fill(4)
-		return
-	if (Input.is_key_pressed(KEY_KP_5) or Input.is_key_pressed(KEY_5)) and Input.is_key_pressed(KEY_CONTROL):
-		_fill(5)
-		return
-	if (Input.is_key_pressed(KEY_KP_6) or Input.is_key_pressed(KEY_6)) and Input.is_key_pressed(KEY_CONTROL):
-		_fill(6)
-		return
-	if (Input.is_key_pressed(KEY_KP_7) or Input.is_key_pressed(KEY_7)) and Input.is_key_pressed(KEY_CONTROL):
-		_fill(7)
-		return
-	if (Input.is_key_pressed(KEY_KP_8) or Input.is_key_pressed(KEY_8)) and Input.is_key_pressed(KEY_CONTROL):
-		_fill(8)
-		return
-	if (Input.is_key_pressed(KEY_KP_9) or Input.is_key_pressed(KEY_9)) and Input.is_key_pressed(KEY_CONTROL):
-		_fill(9)
-		return
 	
-		
 	if active_color_rect!=null:
+		# 按ctrl+数字，填充整个地图
+		if (Input.is_key_pressed(KEY_KP_0) or Input.is_key_pressed(KEY_0)) and Input.is_key_pressed(KEY_CONTROL):
+			_fill(0)
+			return
+		if (Input.is_key_pressed(KEY_KP_1) or Input.is_key_pressed(KEY_1)) and Input.is_key_pressed(KEY_CONTROL):
+			_fill(1)
+			return
+		if (Input.is_key_pressed(KEY_KP_2) or Input.is_key_pressed(KEY_2)) and Input.is_key_pressed(KEY_CONTROL):
+			_fill(2)
+			return
+		if (Input.is_key_pressed(KEY_KP_3) or Input.is_key_pressed(KEY_3)) and Input.is_key_pressed(KEY_CONTROL):
+			_fill(3)
+			return
+		if (Input.is_key_pressed(KEY_KP_4) or Input.is_key_pressed(KEY_4)) and Input.is_key_pressed(KEY_CONTROL):
+			_fill(4)
+			return
+		if (Input.is_key_pressed(KEY_KP_5) or Input.is_key_pressed(KEY_5)) and Input.is_key_pressed(KEY_CONTROL):
+			_fill(5)
+			return
+		if (Input.is_key_pressed(KEY_KP_6) or Input.is_key_pressed(KEY_6)) and Input.is_key_pressed(KEY_CONTROL):
+			_fill(6)
+			return
+		if (Input.is_key_pressed(KEY_KP_7) or Input.is_key_pressed(KEY_7)) and Input.is_key_pressed(KEY_CONTROL):
+			_fill(7)
+			return
+		if (Input.is_key_pressed(KEY_KP_8) or Input.is_key_pressed(KEY_8)) and Input.is_key_pressed(KEY_CONTROL):
+			_fill(8)
+			
+			return
+		if (Input.is_key_pressed(KEY_KP_9) or Input.is_key_pressed(KEY_9)) and Input.is_key_pressed(KEY_CONTROL):
+			_fill(9)
+			return
+		
+		# 填充某个格子
 		if Input.is_key_pressed(KEY_KP_0) or Input.is_key_pressed(KEY_0):
 			_handle_pressed(0)
 		if Input.is_key_pressed(KEY_KP_1) or Input.is_key_pressed(KEY_1):
@@ -150,6 +154,9 @@ func _input(event):
 			_handle_pressed(7)
 		if Input.is_key_pressed(KEY_KP_8) or Input.is_key_pressed(KEY_8):
 			_handle_pressed(8)
+			# 如果是城市则弹出添加城市信息的菜单
+			$CityPopupPanel.rect_position=mouse_position
+			$CityPopupPanel.popup()
 		if Input.is_key_pressed(KEY_KP_9) or Input.is_key_pressed(KEY_9):
 			_handle_pressed(9)
 		
@@ -367,3 +374,7 @@ func _format_mapstate():
 #	save_file.open("res://Json/map_state.json",File.WRITE)
 #	save_file.store_string(JSON.print(state,"\t"))
 #	save_file.close()
+
+
+func _on_Confirm_pressed():
+	architecture_changed=true

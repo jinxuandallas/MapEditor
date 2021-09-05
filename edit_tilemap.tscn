@@ -202,4 +202,27 @@ margin_bottom = 44.0
 custom_fonts/font = ExtResource( 3 )
 text = "是否保存"
 
+[node name="CityPopupPanel" type="PopupPanel" parent="."]
+visible = true
+margin_right = 250.0
+margin_bottom = 200.0
+
+[node name="LineEdit" type="LineEdit" parent="CityPopupPanel"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 62.0
+margin_bottom = 28.0
+
+[node name="Confirm" type="Button" parent="CityPopupPanel"]
+margin_left = 88.0897
+margin_top = 141.066
+margin_right = 140.09
+margin_bottom = 170.066
+custom_fonts/font = ExtResource( 3 )
+text = "确定"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="confirmed" from="ConfirmDialog" to="." method="_on_ConfirmDialog_confirmed"]
+[connection signal="pressed" from="CityPopupPanel/Confirm" to="." method="_on_Confirm_pressed"]
