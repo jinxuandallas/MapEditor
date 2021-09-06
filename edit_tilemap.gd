@@ -9,8 +9,9 @@ var active_color_rect
 var map_data=[]
 var mouse_position
 var map_state:=[]
-var architectures:=[]
+var architectures:=[] #建筑设施的数组
 var architecture_changed=false
+var city_position
 
 onready var background=$ParallaxBackground
 onready var margin_container=$"Viewport/MarginContainer"
@@ -156,7 +157,7 @@ func _input(event):
 			_handle_pressed(8)
 			# 如果是城市则弹出添加城市信息的菜单
 			$CityPopupPanel.rect_position=mouse_position
-			$CityPopupPanel.popup()
+			_show_city_popup_panel()
 		if Input.is_key_pressed(KEY_KP_9) or Input.is_key_pressed(KEY_9):
 			_handle_pressed(9)
 		
@@ -377,4 +378,70 @@ func _format_mapstate():
 
 
 func _on_Confirm_pressed():
+	var city_str=$CityPopupPanel/MarginContainer/VBoxContainer/LineEdit.text
+	var city_arr=city_str.split(" ",false,1)
+	if city_arr.size()<1:
+		return
+		
+	var jun
+	var xian_name
+	var jun_zhi=$CityPopupPanel/MarginContainer/VBoxContainer/CheckBoxJunZhi.pressed
+	var architecture_type=1 if $CityPopupPanel/MarginContainer/VBoxContainer/HBoxContainer/CheckBoxCity.pressed else 2
+	# 1是城市，2是港口
+#	print(city_arr)
+#	var tilemap_position=_get_color_rect_num(city_rect)
+	var map_position=[int(map_num)%12*20+city_position.x,int(map_num)/12*20+city_position.y]
 	architecture_changed=true
+	if city_arr.size()==2:
+		jun=city_arr[0]
+		xian_name=city_arr[1]
+		
+	else:
+		jun=""
+		xian_name=city_arr[0]
+	if architectures.size()==0: # 如果建筑物的数组为空，则添加一个
+		architectures.append({"Id":0,"Name":xian_name,"Jun":jun,"JunZhi":jun_zhi,"ArchitectureType":architecture_type,"MapPosition":map_position})
+	else:
+		var has_architecture=false
+		for arc in architectures:
+			if arc["MapPosition"]==map_position:
+				has_architecture=true
+				arc["Name"]=xian_name
+				arc["Jun"]=jun
+				arc["JunZhi"]=jun_zhi
+				arc["ArchitectureType"]=architecture_type
+				break
+		
+		if !has_architecture: #如果以前没有这个建筑则新添加一个（判断标准是地图坐标）
+			architectures.append({"Id":architectures.size(),"Name":xian_name,"Jun":jun,"JunZhi":jun_zhi,"ArchitectureType":architecture_type,"MapPosition":map_position})
+			
+	print(architectures)
+
+func _show_city_popup_panel():
+	# 获取当前方格在总地图中的坐标
+	city_position=_get_color_rect_num(active_color_rect)
+#	var tilemap_position=_get_color_rect_num(city_rect)
+	var map_position=[int(map_num)%12*20+city_position.x,int(map_num)/12*20+city_position.y]
+	var has_architecture=false
+	
+	for arc in architectures:
+		if arc["MapPosition"]==map_position:
+			has_architecture=true
+			$CityPopupPanel/MarginContainer/VBoxContainer/LineEdit.text=arc["Name"] if arc["Jun"]=="" else "%s %s"%[arc["Jun"],arc["Name"]]
+			 
+			$CityPopupPanel/MarginContainer/VBoxContainer/CheckBoxJunZhi.pressed=arc["JunZhi"]
+			
+			if arc["ArchitectureType"]==1:
+				$CityPopupPanel/MarginContainer/VBoxContainer/HBoxContainer/CheckBoxCity.pressed=true
+			else:
+				$CityPopupPanel/MarginContainer/VBoxContainer/HBoxContainer/CheckBoxPort.pressed=true
+			break
+			
+	if !has_architecture:
+		$CityPopupPanel/MarginContainer/VBoxContainer/LineEdit.text=""
+		$CityPopupPanel/MarginContainer/VBoxContainer/CheckBoxJunZhi.pressed=false
+		$CityPopupPanel/MarginContainer/VBoxContainer/HBoxContainer/CheckBoxCity.pressed=true
+	
+	
+	
+	$CityPopupPanel.popup()

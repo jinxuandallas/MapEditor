@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
+[ext_resource path="res://Resource/city_buttongroup.tres" type="ButtonGroup" id=1]
 [ext_resource path="res://edit_tilemap.gd" type="Script" id=2]
 [ext_resource path="res://fonts/game_chinese_dynamicfont.tres" type="DynamicFont" id=3]
 
@@ -205,19 +206,75 @@ text = "是否保存"
 [node name="CityPopupPanel" type="PopupPanel" parent="."]
 visible = true
 margin_right = 250.0
-margin_bottom = 200.0
+margin_bottom = 250.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="LineEdit" type="LineEdit" parent="CityPopupPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="CityPopupPanel"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 62.0
-margin_bottom = 28.0
+margin_right = 246.0
+margin_bottom = 246.0
+custom_constants/margin_top = 30
+custom_constants/margin_left = 40
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Confirm" type="Button" parent="CityPopupPanel"]
-margin_left = 88.0897
-margin_top = 141.066
-margin_right = 140.09
-margin_bottom = 170.066
+[node name="VBoxContainer" type="VBoxContainer" parent="CityPopupPanel/MarginContainer"]
+margin_left = 40.0
+margin_top = 30.0
+margin_right = 242.0
+margin_bottom = 242.0
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit" type="LineEdit" parent="CityPopupPanel/MarginContainer/VBoxContainer"]
+margin_right = 150.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 150, 0 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 3 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CityPopupPanel/MarginContainer/VBoxContainer"]
+margin_top = 53.0
+margin_right = 202.0
+margin_bottom = 84.0
+custom_constants/separation = 30
+
+[node name="CheckBoxCity" type="CheckBox" parent="CityPopupPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 68.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 3 )
+pressed = true
+group = ExtResource( 1 )
+text = "城市"
+
+[node name="CheckBoxPort" type="CheckBox" parent="CityPopupPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 98.0
+margin_right = 166.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 3 )
+group = ExtResource( 1 )
+text = "港口"
+
+[node name="CheckBoxJunZhi" type="CheckBox" parent="CityPopupPanel/MarginContainer/VBoxContainer"]
+margin_top = 104.0
+margin_right = 202.0
+margin_bottom = 135.0
+custom_fonts/font = ExtResource( 3 )
+text = "郡治"
+
+[node name="Confirm" type="Button" parent="CityPopupPanel/MarginContainer/VBoxContainer"]
+margin_top = 155.0
+margin_right = 52.0
+margin_bottom = 184.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 custom_fonts/font = ExtResource( 3 )
 text = "确定"
 __meta__ = {
@@ -225,4 +282,4 @@ __meta__ = {
 }
 
 [connection signal="confirmed" from="ConfirmDialog" to="." method="_on_ConfirmDialog_confirmed"]
-[connection signal="pressed" from="CityPopupPanel/Confirm" to="." method="_on_Confirm_pressed"]
+[connection signal="pressed" from="CityPopupPanel/MarginContainer/VBoxContainer/Confirm" to="." method="_on_Confirm_pressed"]

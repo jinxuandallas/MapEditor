@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Resource/new_buttongroup.tres" type="ButtonGroup" id=1]
+[ext_resource path="res://Test/Test.gd" type="Script" id=2]
+
+[node name="Test" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="CheckBox" type="CheckBox" parent="."]
+margin_left = 55.4374
+margin_top = 105.631
+margin_right = 79.4374
+margin_bottom = 129.631
+group = ExtResource( 1 )
+text = "dfdddd"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBox2" type="CheckBox" parent="."]
+margin_left = 56.1865
+margin_top = 134.848
+margin_right = 128.187
+margin_bottom = 158.848
+group = ExtResource( 1 )
+text = "dfdddd"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ToolButton" type="ToolButton" parent="."]
+margin_left = 38.956
+margin_top = 30.7153
+margin_right = 50.956
+margin_bottom = 52.7153
+text = "sdfsfs"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckButton" type="CheckButton" parent="."]
+margin_right = 76.0
+margin_bottom = 40.0
+group = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
