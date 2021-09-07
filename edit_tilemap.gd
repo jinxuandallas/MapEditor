@@ -12,6 +12,7 @@ var map_state:=[]
 var architectures:=[] #建筑设施的数组
 var architecture_changed=false
 var city_position
+var pass_position
 
 onready var background=$ParallaxBackground
 onready var margin_container=$"Viewport/MarginContainer"
@@ -22,8 +23,8 @@ onready var map_num=get_tree().get_meta("MapNum")
 
 
 func _ready():
-	get_tree().set_meta("MapNum","57")
-	map_num="57"
+	get_tree().set_meta("MapNum","53")
+	map_num="53"
 	
 	#检查有没有设置MapNum变量
 	if !get_tree().has_meta("MapNum"):
@@ -83,6 +84,8 @@ func _ready():
 	$ParallaxBackground/ParallaxLayer/GridContainer/ColorRect9.color=Color.firebrick
 	
 	$ConfirmDialog.get_cancel().connect("pressed",self,"_on_ConfirmDialog_canelled")
+	
+	_load_architectures()
 
 
 func _input(event):
@@ -160,7 +163,8 @@ func _input(event):
 			_show_city_popup_panel()
 		if Input.is_key_pressed(KEY_KP_9) or Input.is_key_pressed(KEY_9):
 			_handle_pressed(9)
-		
+			$PassPopupPanel.rect_position=mouse_position
+			_show_pass_popup_panel()
 	
 			
 func _physics_process(delta):
@@ -216,6 +220,21 @@ func _fill(key_type):
 	
 func _handle_pressed(key_type):		#处理按键后的逻辑
 	var coordinate=_get_color_rect_num(active_color_rect)
+#	print(coordinate.x is float)
+#	print(coordinate.x is int)
+	# 删除建筑：如果按键不是8或9，原来的格子是8或9则要在architectures中删除相应的建筑数据
+	if key_type<8 and map_data[coordinate.y][coordinate.x]>7:
+#		print(architectures[5]["MapPosition"]==[107,90])
+		var map_position=[int(int(map_num)%12*20+coordinate.x),int(int(map_num)/12*20+coordinate.y)]
+#		print(map_position)
+#		print(architectures[5]["MapPosition"]==map_position)
+		for arc in architectures:
+			if arc["MapPosition"]==map_position:
+				architectures.erase(arc)
+				architecture_changed=true
+				break
+#		print(architectures)
+	
 	map_data[coordinate.y][coordinate.x]=key_type
 	active_color_rect.color=_get_color(key_type)
 	active_color_rect.color.a=0.6
@@ -228,7 +247,6 @@ func _get_color_rect_num(color_rect:ColorRect):		#根据ColorRect对象判断其
 func _save_map():
 	var save_file=File.new()
 	save_file.open("res://Json/%s.json"%map_num,File.WRITE)
-#	var json={"name":"xxx","value":"yyy","age":18}
 	var l=1
 	var map_dic:Dictionary
 	while l<=map_data.size():
@@ -236,7 +254,6 @@ func _save_map():
 		l+=1
 		
 	save_file.store_string(JSON.print(map_dic,"\t"))
-#	print(JSON.print(map_dic,"\t"))
 	save_file.close()
 	
 	#存储地图状态
@@ -252,6 +269,8 @@ func _save_map():
 	map_state[map_num as int]=state
 	
 	_save_mapstate()
+	
+	_save_architectures()
 	
 func _save_mapstate():
 	var save_file=File.new()
@@ -390,7 +409,7 @@ func _on_Confirm_pressed():
 	# 1是城市，2是港口
 #	print(city_arr)
 #	var tilemap_position=_get_color_rect_num(city_rect)
-	var map_position=[int(map_num)%12*20+city_position.x,int(map_num)/12*20+city_position.y]
+	var map_position=[int(int(map_num)%12*20+city_position.x),int(int(map_num)/12*20+city_position.y)]
 	architecture_changed=true
 	if city_arr.size()==2:
 		jun=city_arr[0]
@@ -413,15 +432,17 @@ func _on_Confirm_pressed():
 				break
 		
 		if !has_architecture: #如果以前没有这个建筑则新添加一个（判断标准是地图坐标）
-			architectures.append({"Id":architectures.size(),"Name":xian_name,"Jun":jun,"JunZhi":jun_zhi,"ArchitectureType":architecture_type,"MapPosition":map_position})
+			architectures.append({"Id":architectures.back()["Id"]+1,"Name":xian_name,"Jun":jun,"JunZhi":jun_zhi,"ArchitectureType":architecture_type,"MapPosition":map_position})
 			
-	print(architectures)
+	$CityPopupPanel.hide()
+#	print(architectures)
 
 func _show_city_popup_panel():
 	# 获取当前方格在总地图中的坐标
 	city_position=_get_color_rect_num(active_color_rect)
 #	var tilemap_position=_get_color_rect_num(city_rect)
-	var map_position=[int(map_num)%12*20+city_position.x,int(map_num)/12*20+city_position.y]
+#	print(city_position.x is float)
+	var map_position=[int(int(map_num)%12*20+city_position.x),int(int(map_num)/12*20+city_position.y)]
 	var has_architecture=false
 	
 	for arc in architectures:
@@ -442,6 +463,104 @@ func _show_city_popup_panel():
 		$CityPopupPanel/MarginContainer/VBoxContainer/CheckBoxJunZhi.pressed=false
 		$CityPopupPanel/MarginContainer/VBoxContainer/HBoxContainer/CheckBoxCity.pressed=true
 	
-	
-	
 	$CityPopupPanel.popup()
+
+func _show_pass_popup_panel():
+	# 获取当前方格在总地图中的坐标
+	pass_position=_get_color_rect_num(active_color_rect)
+#	var tilemap_position=_get_color_rect_num(city_rect)
+	var map_position=[int(int(map_num)%12*20+pass_position.x),int(int(map_num)/12*20+pass_position.y)]
+	var has_architecture=false
+	
+	for arc in architectures:
+		if arc["MapPosition"]==map_position:
+			has_architecture=true
+			$PassPopupPanel/MarginContainer/VBoxContainer/LineEdit.text=arc["Name"] if arc["Jun"]=="" else "%s %s"%[arc["Jun"],arc["Name"]]
+			 
+			if arc["ArchitectureType"]==3:
+				$PassPopupPanel/MarginContainer/VBoxContainer/HBoxContainer/CheckBoxPass.pressed=true
+			else:
+				$PassPopupPanel/MarginContainer/VBoxContainer/HBoxContainer/CheckBoxBarrack.pressed=true
+			break
+			
+	if !has_architecture:
+		$PassPopupPanel/MarginContainer/VBoxContainer/LineEdit.text=""
+		$PassPopupPanel/MarginContainer/VBoxContainer/HBoxContainer/CheckBoxPass.pressed=true
+	
+	$PassPopupPanel.popup()
+
+func _load_architectures():
+	var file=File.new()
+	if not file.file_exists("res://Json/Architectures.json"):
+		print("文件不存在")
+		architectures=[]
+		return
+		
+	file.open("res://Json/Architectures.json",File.READ)
+#	var line=[]
+#	while file.get_position()<file.get_len():
+	var architecture_json=parse_json(file.get_as_text())
+#	print(file.get_as_text())
+	architectures.clear()
+	if architecture_json.size()>0:
+		
+		# 把json中的float全部转成int
+		for arc in architecture_json:
+			var format_arc:Dictionary
+			for k in arc:
+#				print("%s:%s"%[k,arc[k]])
+				if arc[k] is float:
+					format_arc[k]=int(arc[k])
+				elif arc[k] is Array:
+					var format_arr:Array
+					for a in arc[k]:
+						format_arr.append(int(a))
+					format_arc[k]=format_arr
+				else:
+					format_arc[k]=arc[k]
+			architectures.append(format_arc)
+			
+#	print(architectures)
+#	print(architectures[0]["MapPosition"])
+#	print(architectures[0]["MapPosition"]==[187,87])
+	file.close()
+	
+func _save_architectures():
+	if !architecture_changed:
+		return
+	var save_file=File.new()
+	save_file.open("res://Json/Architectures.json",File.WRITE)
+	save_file.store_string(JSON.print(architectures,"\t"))
+	save_file.close()
+
+
+func _on_Pass_Confirm_pressed():
+	var pass_str=$PassPopupPanel/MarginContainer/VBoxContainer/LineEdit.text
+	if pass_str.length()<1:
+		return
+		
+	var jun
+	var xian_name
+	var architecture_type=3 if $PassPopupPanel/MarginContainer/VBoxContainer/HBoxContainer/CheckBoxPass.pressed else 4
+	# 3是关隘，4是军营
+#	print(city_arr)
+	var map_position=[int(int(map_num)%12*20+pass_position.x),int(int(map_num)/12*20+pass_position.y)]
+	architecture_changed=true
+	if architectures.size()==0: # 如果建筑物的数组为空，则添加一个
+		architectures.append({"Id":0,"Name":pass_str,"Jun":"","JunZhi":"","ArchitectureType":architecture_type,"MapPosition":map_position})
+	else:
+		var has_architecture=false
+		for arc in architectures:
+			if arc["MapPosition"]==map_position:
+				has_architecture=true
+				arc["Name"]=pass_str
+				arc["Jun"]=""
+				arc["JunZhi"]=""
+				arc["ArchitectureType"]=architecture_type
+				break
+		
+		if !has_architecture: #如果以前没有这个建筑则新添加一个（判断标准是地图坐标）
+			architectures.append({"Id":architectures.back()["Id"]+1,"Name":pass_str,"Jun":"","JunZhi":"","ArchitectureType":architecture_type,"MapPosition":map_position})
+			
+	$PassPopupPanel.hide()
+#	print(architectures)

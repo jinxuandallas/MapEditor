@@ -1,0 +1,46 @@
+[
+	{
+		"Id": 0,
+		"Name": "淮陵",
+		"Jun": "下邳国",
+		"JunZhi": false,
+		"ArchitectureType": 1,
+		"MapPosition": [
+			187,
+			87
+		]
+	},
+	{
+		"Id": 1,
+		"Name": "淮阴",
+		"Jun": "下邳国",
+		"JunZhi": false,
+		"ArchitectureType": 1,
+		"MapPosition": [
+			197,
+			83
+		]
+	},
+	{
+		"Id": 2,
+		"Name": "广成关",
+		"Jun": "",
+		"JunZhi": "",
+		"ArchitectureType": 3,
+		"MapPosition": [
+			115,
+			84
+		]
+	},
+	{
+		"Id": 3,
+		"Name": "轩辕关",
+		"Jun": "",
+		"JunZhi": "",
+		"ArchitectureType": 3,
+		"MapPosition": [
+			115,
+			81
+		]
+	}
+]
