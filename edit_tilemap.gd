@@ -23,9 +23,9 @@ onready var map_num=get_tree().get_meta("MapNum")
 
 
 func _ready():
-	get_tree().set_meta("MapNum","53")
-	map_num="53"
-	
+#	get_tree().set_meta("MapNum","53")
+#	map_num="53"
+
 	#检查有没有设置MapNum变量
 	if !get_tree().has_meta("MapNum"):
 		print("没有设定地图编号")
@@ -86,7 +86,8 @@ func _ready():
 	$ConfirmDialog.get_cancel().connect("pressed",self,"_on_ConfirmDialog_canelled")
 	
 	_load_architectures()
-
+	
+	print(map_num)
 
 func _input(event):
 	$Viewport.input(event)
@@ -405,8 +406,8 @@ func _on_Confirm_pressed():
 	var jun
 	var xian_name
 	var jun_zhi=$CityPopupPanel/MarginContainer/VBoxContainer/CheckBoxJunZhi.pressed
-	var architecture_type=1 if $CityPopupPanel/MarginContainer/VBoxContainer/HBoxContainer/CheckBoxCity.pressed else 2
-	# 1是城市，2是港口
+	var architecture_type=0 if $CityPopupPanel/MarginContainer/VBoxContainer/HBoxContainer/CheckBoxCity.pressed else 1
+	# 0是城市，1是港口
 #	print(city_arr)
 #	var tilemap_position=_get_color_rect_num(city_rect)
 	var map_position=[int(int(map_num)%12*20+city_position.x),int(int(map_num)/12*20+city_position.y)]
@@ -541,8 +542,8 @@ func _on_Pass_Confirm_pressed():
 		
 	var jun
 	var xian_name
-	var architecture_type=3 if $PassPopupPanel/MarginContainer/VBoxContainer/HBoxContainer/CheckBoxPass.pressed else 4
-	# 3是关隘，4是军营
+	var architecture_type=2 if $PassPopupPanel/MarginContainer/VBoxContainer/HBoxContainer/CheckBoxPass.pressed else 3
+	# 2是关隘，3是军营
 #	print(city_arr)
 	var map_position=[int(int(map_num)%12*20+pass_position.x),int(int(map_num)/12*20+pass_position.y)]
 	architecture_changed=true

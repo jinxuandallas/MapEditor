@@ -1,6 +1,6 @@
 extends Node2D
 
-const SPEED = 3000
+const SPEED = 1500
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -46,7 +46,7 @@ func _ready():
 			texture_rect.margin_left=j*1000
 			texture_rect.margin_top=i*1000
 			texture_rect.connect("my_mouse_entered",self,"_on_MyTextureRect_mouse_entered")
-			
+#			texture_rect.visible=false
 			_Chunks.add_child(texture_rect)
 			
 	_load_mapstate()	#读取地图状态（是否全部设置过地图类型）
