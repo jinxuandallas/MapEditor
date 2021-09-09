@@ -84,7 +84,7 @@ func _input(event):
 					get_tree().change_scene("res://edit_tilemap.tscn")
 
 
-func _process(delta):
+func _physics_process(delta):
 	if in_edge:
 		#判断鼠标在哪个边界上
 		var vector = mouse_position - screen_size / 2.0
