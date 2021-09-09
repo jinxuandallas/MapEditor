@@ -17,6 +17,7 @@ var mouse_position := Vector2()
 var current_border
 var map_state=[]
 var current_map_num
+#var show_grid=false
 
 onready var _Camera2D = $Camera2D
 onready var _Chunks = $Chunks
@@ -51,7 +52,14 @@ func _ready():
 			
 	_load_mapstate()	#读取地图状态（是否全部设置过地图类型）
 
+	_generate_grid()
+	
+	
 func _input(event):
+	if Input.is_key_pressed(KEY_ENTER) or Input.is_key_pressed(KEY_KP_ENTER):
+#		show_grid=!show_grid
+		$Grids.visible=!$Grids.visible
+		
 	if event is InputEventMouse:
 		mouse_position = event.position
 		in_edge = ! _DetectMouseRect.get_rect().has_point(mouse_position)
@@ -169,3 +177,18 @@ func _format_mapstate():
 	save_file.open("res://Json/map_state.json",File.WRITE)
 	save_file.store_string(JSON.print(state,"\t"))
 	save_file.close()
+
+func _generate_grid():
+	for i in 12:
+		for j in 9:
+			for m in 20:
+				for n in 20:
+					var grid=Sprite.new()
+					grid.texture=preload("res://Image/PositionSelector.png")
+					grid.scale=Vector2(0.5,0.5)
+					grid.position=Vector2(i*1000+m*50,j*1000+n*50)
+					$Grids.add_child(grid)
+			
+	
+	
+	

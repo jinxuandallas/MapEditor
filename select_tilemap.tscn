@@ -43,3 +43,7 @@ margin_top = 100.0
 margin_right = 1100.0
 margin_bottom = 600.0
 mouse_filter = 2
+
+[node name="Grids" type="Node2D" parent="."]
+visible = false
+z_index = 100
