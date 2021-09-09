@@ -187,6 +187,7 @@ func _generate_grid():
 					grid.texture=preload("res://Image/PositionSelector.png")
 					grid.scale=Vector2(0.5,0.5)
 					grid.position=Vector2(i*1000+m*50,j*1000+n*50)
+					grid.centered=false
 					$Grids.add_child(grid)
 			
 	

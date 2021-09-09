@@ -46,4 +46,4 @@ mouse_filter = 2
 
 [node name="Grids" type="Node2D" parent="."]
 visible = false
-z_index = 100
+z_index = 10
