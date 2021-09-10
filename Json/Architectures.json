@@ -1,46 +1,519 @@
 [
 	{
 		"Id": 0,
-		"Name": "淮陵",
-		"Jun": "下邳国",
+		"Name": "祋栩",
+		"Jun": "左冯翊",
 		"JunZhi": false,
-		"ArchitectureType": 1,
+		"ArchitectureType": 0,
 		"MapPosition": [
-			187,
-			87
+			66,
+			71
 		]
 	},
 	{
 		"Id": 1,
-		"Name": "淮阴",
-		"Jun": "下邳国",
-		"JunZhi": false,
-		"ArchitectureType": 1,
+		"Name": "高陵",
+		"Jun": "左冯翊",
+		"JunZhi": true,
+		"ArchitectureType": 0,
 		"MapPosition": [
-			197,
-			83
+			73,
+			76
 		]
 	},
 	{
 		"Id": 2,
+		"Name": "安邑",
+		"Jun": "河东郡",
+		"JunZhi": true,
+		"ArchitectureType": 1,
+		"MapPosition": [
+			94,
+			66
+		]
+	},
+	{
+		"Id": 3,
+		"Name": "蒲坂津",
+		"Jun": "",
+		"JunZhi": false,
+		"ArchitectureType": 1,
+		"MapPosition": [
+			86,
+			70
+		]
+	},
+	{
+		"Id": 4,
+		"Name": "临晋",
+		"Jun": "左冯翊",
+		"JunZhi": false,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			81,
+			75
+		]
+	},
+	{
+		"Id": 5,
+		"Name": "弘农",
+		"Jun": "弘农郡",
+		"JunZhi": true,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			94,
+			78
+		]
+	},
+	{
+		"Id": 6,
+		"Name": "潼关",
+		"Jun": "",
+		"JunZhi": "",
+		"ArchitectureType": 2,
+		"MapPosition": [
+			88,
+			79
+		]
+	},
+	{
+		"Id": 7,
+		"Name": "潼关",
+		"Jun": "",
+		"JunZhi": "",
+		"ArchitectureType": 2,
+		"MapPosition": [
+			88,
+			78
+		]
+	},
+	{
+		"Id": 8,
+		"Name": "潼关",
+		"Jun": "",
+		"JunZhi": "",
+		"ArchitectureType": 2,
+		"MapPosition": [
+			88,
+			77
+		]
+	},
+	{
+		"Id": 9,
+		"Name": "函谷关",
+		"Jun": "",
+		"JunZhi": "",
+		"ArchitectureType": 2,
+		"MapPosition": [
+			98,
+			79
+		]
+	},
+	{
+		"Id": 10,
+		"Name": "函谷关",
+		"Jun": "",
+		"JunZhi": "",
+		"ArchitectureType": 2,
+		"MapPosition": [
+			98,
+			78
+		]
+	},
+	{
+		"Id": 11,
+		"Name": "函谷关",
+		"Jun": "",
+		"JunZhi": "",
+		"ArchitectureType": 2,
+		"MapPosition": [
+			98,
+			77
+		]
+	},
+	{
+		"Id": 12,
+		"Name": "怀县",
+		"Jun": "河内郡",
+		"JunZhi": true,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			115,
+			67
+		]
+	},
+	{
+		"Id": 13,
+		"Name": "温县",
+		"Jun": "河内郡",
+		"JunZhi": false,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			111,
+			69
+		]
+	},
+	{
+		"Id": 14,
+		"Name": "河阳津",
+		"Jun": "",
+		"JunZhi": false,
+		"ArchitectureType": 1,
+		"MapPosition": [
+			108,
+			71
+		]
+	},
+	{
+		"Id": 15,
+		"Name": "箕关",
+		"Jun": "",
+		"JunZhi": "",
+		"ArchitectureType": 2,
+		"MapPosition": [
+			104,
+			69
+		]
+	},
+	{
+		"Id": 16,
+		"Name": "小平津",
+		"Jun": "",
+		"JunZhi": false,
+		"ArchitectureType": 1,
+		"MapPosition": [
+			105,
+			75
+		]
+	},
+	{
+		"Id": 17,
+		"Name": "孟津",
+		"Jun": "",
+		"JunZhi": false,
+		"ArchitectureType": 1,
+		"MapPosition": [
+			112,
+			76
+		]
+	},
+	{
+		"Id": 18,
+		"Name": "洛阳",
+		"Jun": "河南尹",
+		"JunZhi": true,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			102,
+			79
+		]
+	},
+	{
+		"Id": 19,
+		"Name": "洛阳",
+		"Jun": "河南尹",
+		"JunZhi": true,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			103,
+			79
+		]
+	},
+	{
+		"Id": 20,
+		"Name": "洛阳",
+		"Jun": "河南尹",
+		"JunZhi": true,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			104,
+			79
+		]
+	},
+	{
+		"Id": 21,
+		"Name": "虎牢关",
+		"Jun": "",
+		"JunZhi": "",
+		"ArchitectureType": 2,
+		"MapPosition": [
+			116,
+			79
+		]
+	},
+	{
+		"Id": 22,
+		"Name": "虎牢关",
+		"Jun": "",
+		"JunZhi": "",
+		"ArchitectureType": 2,
+		"MapPosition": [
+			116,
+			78
+		]
+	},
+	{
+		"Id": 23,
+		"Name": "虎牢关",
+		"Jun": "",
+		"JunZhi": "",
+		"ArchitectureType": 2,
+		"MapPosition": [
+			116,
+			77
+		]
+	},
+	{
+		"Id": 24,
+		"Name": "虎牢关",
+		"Jun": "",
+		"JunZhi": "",
+		"ArchitectureType": 2,
+		"MapPosition": [
+			116,
+			76
+		]
+	},
+	{
+		"Id": 25,
+		"Name": "虎牢关",
+		"Jun": "",
+		"JunZhi": "",
+		"ArchitectureType": 2,
+		"MapPosition": [
+			116,
+			75
+		]
+	},
+	{
+		"Id": 26,
+		"Name": "长安",
+		"Jun": "京兆尹",
+		"JunZhi": true,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			72,
+			84
+		]
+	},
+	{
+		"Id": 27,
+		"Name": "长安",
+		"Jun": "京兆尹",
+		"JunZhi": true,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			72,
+			85
+		]
+	},
+	{
+		"Id": 28,
+		"Name": "长安",
+		"Jun": "京兆尹",
+		"JunZhi": true,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			71,
+			84
+		]
+	},
+	{
+		"Id": 29,
+		"Name": "长安",
+		"Jun": "京兆尹",
+		"JunZhi": true,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			71,
+			85
+		]
+	},
+	{
+		"Id": 30,
+		"Name": "长安",
+		"Jun": "京兆尹",
+		"JunZhi": true,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			73,
+			85
+		]
+	},
+	{
+		"Id": 31,
+		"Name": "长安",
+		"Jun": "京兆尹",
+		"JunZhi": true,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			73,
+			84
+		]
+	},
+	{
+		"Id": 32,
+		"Name": "槐里",
+		"Jun": "右扶风",
+		"JunZhi": true,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			63,
+			81
+		]
+	},
+	{
+		"Id": 33,
+		"Name": "成固",
+		"Jun": "汉中郡",
+		"JunZhi": false,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			63,
+			98
+		]
+	},
+	{
+		"Id": 34,
+		"Name": "上洛",
+		"Jun": "京兆尹",
+		"JunZhi": false,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			79,
+			89
+		]
+	},
+	{
+		"Id": 35,
+		"Name": "南乡",
+		"Jun": "南阳郡",
+		"JunZhi": false,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			88,
+			97
+		]
+	},
+	{
+		"Id": 36,
+		"Name": "武关",
+		"Jun": "",
+		"JunZhi": "",
+		"ArchitectureType": 2,
+		"MapPosition": [
+			85,
+			86
+		]
+	},
+	{
+		"Id": 37,
+		"Name": "潼关",
+		"Jun": "",
+		"JunZhi": "",
+		"ArchitectureType": 2,
+		"MapPosition": [
+			88,
+			80
+		]
+	},
+	{
+		"Id": 38,
+		"Name": "华阴",
+		"Jun": "弘农郡",
+		"JunZhi": false,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			82,
+			80
+		]
+	},
+	{
+		"Id": 39,
+		"Name": "轩辕关",
+		"Jun": "",
+		"JunZhi": "",
+		"ArchitectureType": 2,
+		"MapPosition": [
+			115,
+			81
+		]
+	},
+	{
+		"Id": 40,
 		"Name": "广成关",
 		"Jun": "",
 		"JunZhi": "",
-		"ArchitectureType": 3,
+		"ArchitectureType": 2,
 		"MapPosition": [
 			115,
 			84
 		]
 	},
 	{
-		"Id": 3,
-		"Name": "轩辕关",
+		"Id": 41,
+		"Name": "宛县",
+		"Jun": "南阳郡",
+		"JunZhi": true,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			107,
+			90
+		]
+	},
+	{
+		"Id": 42,
+		"Name": "新野",
+		"Jun": "南阳郡",
+		"JunZhi": false,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			107,
+			96
+		]
+	},
+	{
+		"Id": 43,
+		"Name": "伊阙关",
 		"Jun": "",
 		"JunZhi": "",
-		"ArchitectureType": 3,
+		"ArchitectureType": 2,
 		"MapPosition": [
-			115,
-			81
+			109,
+			80
+		]
+	},
+	{
+		"Id": 44,
+		"Name": "洛阳",
+		"Jun": "河南尹",
+		"JunZhi": true,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			103,
+			80
+		]
+	},
+	{
+		"Id": 45,
+		"Name": "洛阳",
+		"Jun": "河南尹",
+		"JunZhi": true,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			102,
+			80
+		]
+	},
+	{
+		"Id": 46,
+		"Name": "洛阳",
+		"Jun": "河南尹",
+		"JunZhi": true,
+		"ArchitectureType": 0,
+		"MapPosition": [
+			104,
+			80
 		]
 	}
 ]

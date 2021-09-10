@@ -32,6 +32,7 @@ func _ready():
 		get_tree().change_scene("res://select_tilemap.tscn")
 		return
 		
+	OS.set_window_title("%s.jpg"%map_num)
 	map.texture=load("res://Map/%s.jpg"%map_num)
 	
 	for i in 21:
@@ -411,7 +412,7 @@ func _on_Confirm_pressed():
 #	print(city_arr)
 #	var tilemap_position=_get_color_rect_num(city_rect)
 	var map_position=[int(int(map_num)%12*20+city_position.x),int(int(map_num)/12*20+city_position.y)]
-	architecture_changed=true
+	architecture_changed=true # 标记建筑信息已更改，退出地图时要保存
 	if city_arr.size()==2:
 		jun=city_arr[0]
 		xian_name=city_arr[1]
@@ -433,6 +434,18 @@ func _on_Confirm_pressed():
 				break
 		
 		if !has_architecture: #如果以前没有这个建筑则新添加一个（判断标准是地图坐标）
+			
+			# 此处还是不添加合并同名建筑的坐标问题，因为会导致前面判断坐标相同问题，还是再添加完建筑信息后在整理json数据时添加该功能
+			
+#			# 判断是否有同名建筑（经过前面判断，肯定没有同位置建筑），如果是同名建筑则证明是一个建筑，只添加位置就行
+#			var same_architecture=false
+#			for arc in architectures:
+#				if arc["Jun"]==jun and arc["Name"]==xian_name:
+#					same_architecture=true
+#					var origin_map_position=arc["MapPosition"] as Array
+#					arc["MapPosition"]=origin_map_position.append(map_position)
+#
+#			if !same_architecture:
 			architectures.append({"Id":architectures.back()["Id"]+1,"Name":xian_name,"Jun":jun,"JunZhi":jun_zhi,"ArchitectureType":architecture_type,"MapPosition":map_position})
 			
 	$CityPopupPanel.hide()
@@ -453,10 +466,13 @@ func _show_city_popup_panel():
 			 
 			$CityPopupPanel/MarginContainer/VBoxContainer/CheckBoxJunZhi.pressed=arc["JunZhi"]
 			
-			if arc["ArchitectureType"]==1:
+			if arc["ArchitectureType"]==0:
 				$CityPopupPanel/MarginContainer/VBoxContainer/HBoxContainer/CheckBoxCity.pressed=true
 			else:
 				$CityPopupPanel/MarginContainer/VBoxContainer/HBoxContainer/CheckBoxPort.pressed=true
+			
+			$CityPopupPanel/MarginContainer/VBoxContainer/CheckBoxJunZhi.pressed=true if arc["JunZhi"]==true else false
+			
 			break
 			
 	if !has_architecture:
@@ -478,7 +494,7 @@ func _show_pass_popup_panel():
 			has_architecture=true
 			$PassPopupPanel/MarginContainer/VBoxContainer/LineEdit.text=arc["Name"] if arc["Jun"]=="" else "%s %s"%[arc["Jun"],arc["Name"]]
 			 
-			if arc["ArchitectureType"]==3:
+			if arc["ArchitectureType"]==2:
 				$PassPopupPanel/MarginContainer/VBoxContainer/HBoxContainer/CheckBoxPass.pressed=true
 			else:
 				$PassPopupPanel/MarginContainer/VBoxContainer/HBoxContainer/CheckBoxBarrack.pressed=true

@@ -144,6 +144,7 @@ func _on_MyTextureRect_mouse_entered(my_texture_rect:MyTextureRect):
 	current_border.add_point(Vector2(my_texture_rect.rect_position.x,my_texture_rect.rect_position.y))
 	_Chunks.add_child(current_border)
 	current_map_num=my_texture_rect.name.trim_prefix("PartMap")
+	OS.set_window_title("%s.jpg"%current_map_num)
 	
 
 func _load_mapstate():
